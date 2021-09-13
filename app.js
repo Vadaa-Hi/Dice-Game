@@ -1,27 +1,49 @@
-// Тоглолгчийн ээлжийг хадгалах хувьсагч, нэгдүгээр тоглогчийг 0, хоёрдугаар тоглогчийг 1 гэж тэмдэлэе.
-var activePlayer = 0;
+//Тоглоомын бүх газарт ашиглахдах глобаль хувьсагчдыг энд зарлая
+
+//Аль тоглогч шоо шидэх вэ гэдгийг энд хадгална
+var activePlayer;
+//Хоёр тоглогчийн цуглуулсан оноонууд
+var scores;
+//Идэвхэй тоглоогчийн цуглуулж байгаа ээлжийн оноо
+var roundScore;
+
+//Шооны зургийг үзүүлэх элементийг DOM-оос хайж олоод энд хадгалья
+var diceDom= document.querySelector('.dice');
+
+//Тоглоомыг эхлүүлнэ
+initGame()
+
+//Тоглоом шинэээр эхлэхэд бэлтгэнэ
+function initGame(){
+    // Тоглолгчийн ээлжийг хадгалах хувьсагч, нэгдүгээр тоглогчийг 0, хоёрдугаар тоглогчийг 1 гэж тэмдэлэе.
+activePlayer = 0;
 
 // Тоглолгчдын цуглуулсан оноог хадгалах хувьсагч
-var scores = [0,0];
+scores = [0,0];
 
 
 // Тоглолгчийн ээлжинд цуглуулж байгаа оноог хадгалах хувьсагч
-var roundScore = 0;
+roundScore = 0;
 
-// Шооны аль талаараа буусныг хадгалах хувьсагч хэрэгтэй, 1-6 гэсэн утгыг энэ хувьсагчид санамсаргүйгээр үүсгэж өгнө.
-
-
-// Програм эхлэхэд бэлтгэе
 // Dom ашиглан ID аар нь хайж оллоо тус бүрийг нь 
 document.getElementById("score-0").textContent="0";
 window.document.getElementById('score-1').textContent = "0";
 window.document.getElementById('current-0').textContent = "0";
 window.document.getElementById('current-1').textContent = "0";
+//Тоглогчдын нэрийг буцааж гаргах
+document.getElementById('name-0').textContent="Player 1";
+document.getElementById('name-1').textContent="Player 2";
 
-var diceDom= document.querySelector('.dice');
+document.querySelector(".player-0-panel").classList.remove('winner');
+document.querySelector(".player-1-panel").classList.remove('winner');
+
+document.querySelector(".player-0-panel").classList.remove('active');
+document.querySelector(".player-1-panel").classList.remove('active');
+
+document.querySelector(".player-0-panel").classList.add('active');
 
 diceDom.style.display ="none";
-
+}
 // Шоог шидэх ивент листенер
 document.querySelector('.btn-roll').addEventListener("click", function (){
     //1-6 хүртэлх санамсаргүй нэг тоо гаргаж авна
@@ -72,3 +94,5 @@ function switchToNextPlayer(){
     //Шоог түр алга болгоно
     diceDom.style.display="none";
 }
+//New Game буюу Шинэ тоглоом эхлүүлэх товчний эвент листенер
+document.querySelector('.btn-new').addEventListener('click', initGame); 
